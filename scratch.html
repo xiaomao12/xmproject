@@ -1,48 +1,89 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh - CN">
+
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF - 8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的第一个网页</title>
+    <title>和平精英主题网页</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            font-family: Arial, sans - serif;
+            background - color: #000;
+            color: #fff;
             margin: 0;
             padding: 0;
+        }
+
+        header {
+            background - image: url('https://pic1.zhimg.com/v2-8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c_r.jpg');
+            background - size: cover;
+            background - position: center;
+            height: 300px;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            align - items: center;
+            justify - content: center;
+            text - align: center;
         }
-        .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
+
         h1 {
-            color: #333;
+            font - size: 3em;
+            text - shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
-        p {
-            color: #666;
+
+       .content {
+            padding: 20px;
         }
-        a {
-            color: #007BFF;
-            text-decoration: none;
+
+       .qrcode - container {
+            margin - top: 20px;
+            text - align: center;
         }
-        a:hover {
-            text-decoration: underline;
+
+       .qrcode - mock {
+            width: 200px;
+            height: 200px;
+            background - color: #fff;
+            display: inline - block;
+            position: relative;
+        }
+
+       .qrcode - mock::before,
+       .qrcode - mock::after {
+            content: "";
+            position: absolute;
+            background - color: #000;
+        }
+
+       .qrcode - mock::before {
+            top: 10px;
+            left: 10px;
+            width: 40px;
+            height: 40px;
+        }
+
+       .qrcode - mock::after {
+            bottom: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
         }
     </style>
 </head>
+
 <body>
-<div class="container">
-    <h1>欢迎来到我的网页！</h1>
-    <p>这是一个简单的本地网页示例。</p>
-    <p>你可以在这里添加更多的内容，比如图片、链接等。</p>
-    <p><a href="https://www.example.com">点击这里访问示例链接</a></p>
-</div>
+    <header>
+        <h1>欢迎来到和平精英世界</h1>
+    </header>
+    <div class="content">
+        <p>《和平精英》是一款超人气的战术竞技类游戏，玩家们将在广袤的地图上展开激烈角逐。</p>
+        <p>游戏中拥有丰富多样的武器装备，从近战利器到远距离狙击枪，满足不同玩家的战斗风格。</p>
+        <p>还有各种载具，让你能在战场上快速转移，抢占先机。</p>
+        <p>多样的地形地貌，海岛、沙漠、雨林等，每一局游戏都充满了未知与挑战。</p>
+    </div>
+    <div class="qrcode - container">
+        <h2>扫码获取更多精彩</h2>
+        <div class="qrcode - mock"></div>
+    </div>
 </body>
+
 </html>
