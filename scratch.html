@@ -1,89 +1,78 @@
 <!DOCTYPE html>
-<html lang="zh - CN">
-
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF - 8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>和平精英主题网页</title>
+    <title>和平精英 - 游戏介绍</title>
     <style>
         body {
-            font-family: Arial, sans - serif;
-            background - color: #000;
-            color: #fff;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
             margin: 0;
             padding: 0;
         }
-
         header {
-            background - image: url('https://pic1.zhimg.com/v2-8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c8c_r.jpg');
-            background - size: cover;
-            background - position: center;
-            height: 300px;
-            display: flex;
-            align - items: center;
-            justify - content: center;
-            text - align: center;
-        }
-
-        h1 {
-            font - size: 3em;
-            text - shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-       .content {
+            background-color: #4CAF50;
+            color: white;
             padding: 20px;
+            text-align: center;
         }
-
-       .qrcode - container {
-            margin - top: 20px;
-            text - align: center;
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-
-       .qrcode - mock {
-            width: 200px;
-            height: 200px;
-            background - color: #fff;
-            display: inline - block;
-            position: relative;
+        .qr-code {
+            text-align: center;
+            margin-top: 20px;
         }
-
-       .qrcode - mock::before,
-       .qrcode - mock::after {
-            content: "";
-            position: absolute;
-            background - color: #000;
+        .qr-code img {
+            width: 150px;
+            height: 150px;
         }
-
-       .qrcode - mock::before {
-            top: 10px;
-            left: 10px;
-            width: 40px;
-            height: 40px;
-        }
-
-       .qrcode - mock::after {
-            bottom: 10px;
-            right: 10px;
-            width: 40px;
-            height: 40px;
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
         }
     </style>
 </head>
-
 <body>
-    <header>
-        <h1>欢迎来到和平精英世界</h1>
-    </header>
-    <div class="content">
-        <p>《和平精英》是一款超人气的战术竞技类游戏，玩家们将在广袤的地图上展开激烈角逐。</p>
-        <p>游戏中拥有丰富多样的武器装备，从近战利器到远距离狙击枪，满足不同玩家的战斗风格。</p>
-        <p>还有各种载具，让你能在战场上快速转移，抢占先机。</p>
-        <p>多样的地形地貌，海岛、沙漠、雨林等，每一局游戏都充满了未知与挑战。</p>
-    </div>
-    <div class="qrcode - container">
-        <h2>扫码获取更多精彩</h2>
-        <div class="qrcode - mock"></div>
-    </div>
-</body>
 
+    <header>
+        <h1>和平精英</h1>
+        <p>绝地求生正版手游，百人同场竞技，体验真实射击快感！</p>
+    </header>
+
+    <div class="container">
+        <h2>游戏介绍</h2>
+        <p>《和平精英》是由腾讯光子工作室群自研打造的军事竞赛体验手游。游戏采用虚幻引擎4研发，致力于从画面、地图、射击手感等多个层面，为玩家全方位打造出极具真实感的军事竞赛体验。</p>
+        <p>在游戏中，玩家将扮演一名特种兵，与其他99名玩家一同空降到一座孤岛上，通过搜集武器、装备和资源，最终生存下来的玩家将获得胜利。</p>
+
+        <h2>游戏特色</h2>
+        <ul>
+            <li>百人同场竞技，真实射击体验</li>
+            <li>多种武器和装备，自由搭配</li>
+            <li>丰富的战术选择，团队合作至关重要</li>
+            <li>精美的画面和流畅的操作体验</li>
+        </ul>
+
+        <div class="qr-code">
+            <h3>扫描二维码下载游戏</h3>
+            <img src="https://www.quickchart.io/qr?text=https://gp.qq.com/download.html" alt="和平精英下载二维码">
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 和平精英. 版权所有.</p>
+    </footer>
+
+</body>
 </html>
