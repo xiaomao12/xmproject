@@ -12,21 +12,12 @@
             margin: 0;
             padding: 0;
         }
-        video {
+        video, iframe {
             width: 100%;
             max-width: 800px;
+            height: 450px;
+            border: none;
             margin-top: 20px;
-        }
-        #qr-modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            z-index: 1000;
         }
         #overlay {
             display: none;
@@ -38,11 +29,6 @@
             background-color: rgba(0, 0, 0, 0.7);
             z-index: 999;
         }
-        #qrcode {
-            width: 200px;
-            height: 200px;
-            margin: 0 auto;
-        }
         .popup {
             display: none;
             position: fixed;
@@ -53,20 +39,30 @@
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             z-index: 1000;
+            text-align: center;
         }
         .popup button {
             margin: 10px;
         }
+        #qrcode {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+        }
     </style>
     <!-- 引入QRCode.js库 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <!-- 引入hls.js -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
 <body>
 <h1>视频播放中...</h1>
-<video id="myVideo" controls autoplay>
-    <source src="https://v16m-default.akamaized.net/7a7db2ed2924d2ff01f94b3fef7e2654/67bcc045/video/tos/alisg/tos-alisg-v-0000/o0wWxAQnkBzTo7EeDCf8zAQxDBrLbSugRNJL9h/?a=2011&bti=MzhALjBg&ch=0&cr=0&dr=0&net=5&cd=0%7C0%7C0%7C0&br=6816&bt=3408&cs=0&ds=4&ft=XE5bCqT0mmjPD12ghcMJ3wU7C1JcMeF~O5&mime_type=video_mp4&qs=0&rc=OTc5PDZoOTw8NWlpaGc1OUBpM25wZDw6Zjt2azMzODYzNEAuYF4uMjQzXmMxXzJfNGEwYSNgMTNwcjRfXzJgLS1kMC1zcw%3D%3D&vvpl=1&l=20250224115227B4AB0E67698BC309F943&btag=e000a8000" type="video/mp4">
-    您的浏览器不支持视频播放。
-</video>
+
+<!-- 嵌入视频 -->
+<iframe
+        src="https://wcvod.com/addons/dplayer/?url=https://cdn.wlcdn99.com:777/33ddc5ab/index.m3u8"
+        allowfullscreen>
+</iframe>
 
 <!-- 二维码弹窗 -->
 <div id="overlay"></div>
@@ -83,6 +79,9 @@
     const overlay = document.getElementById('overlay');
     const qrLink = "https://pro.m.jd.com/mall/active/B2Y13x641hwWfpsoRenCzfbz4jR/index.html?inviterId=C2TanS1f_FGxhcdacEUMxQ&channelType=1&femobile=femobile&_ts=1739954379197&gx=RnAoF-_kvaphHTSOeDvqhajyml1QzA&gxd=RnAoxGBZazGKz5kUrtF2XlCi39_UX60&ad_od=share&utm_source=androidapp&utm_medium=appshare&utm_campaign=t_335139774&utm_term=QRCode_shareid77035c4111e13192173995437933736523_none_none";
 
+    let isPopupDisabled = false; // 标志变量，用于控制是否禁用弹窗
+    let popupTimer = null; // 定时器变量
+
     // 生成二维码
     new QRCode(document.getElementById("qrcode"), {
         text: qrLink,
@@ -90,38 +89,71 @@
         height: 200
     });
 
+    // 重定向并返回
     function redirectAndComeBack() {
-        const currentTime = video.currentTime;
+        closeLong(); // 关闭弹窗
+        clearTimeout(popupTimer); // 清除定时器
+        isPopupDisabled = true; // 禁用弹窗
+
+        const currentTime = video ? video.currentTime : 0;
         const newWindow = window.open(qrLink, '_blank');
         const interval = setInterval(() => {
             if (newWindow.closed) {
                 clearInterval(interval);
-                video.currentTime = currentTime;
-                video.play();
-                closePopup();
+                if (video) {
+                    video.currentTime = currentTime;
+                    video.play();
+                }
             }
         }, 100);
     }
 
+
+
+    // 显示弹窗
+    function showPopup() {
+        if (!isPopupDisabled) {
+            popup.style.display = 'block';
+            overlay.style.display = 'block';
+            if (video) video.pause();
+        }
+    }
+
+    // 页面加载时显示弹窗
+    window.onload = function () {
+        if (video) {
+            video.pause();
+        }
+        showPopup(); // 显示弹窗
+
+        // 设置定时器，30秒后再次显示弹窗
+        popupTimer = setTimeout(() => {
+            showPopup();
+        }, 10000); // 30秒 = 30000毫秒
+    };
+     // 关闭弹窗
     function closePopup() {
         popup.style.display = 'none';
         overlay.style.display = 'none';
-        video.play();
+        if (video) video.play();
 
         // 30秒后再次显示弹窗
-        setTimeout(() => {
+        popupTimer =  setTimeout(() => {
             popup.style.display = 'block';
             overlay.style.display = 'block';
             video.pause();
-        }, 30000); // 30秒 = 30000毫秒
+        }, 10000); // 30秒 = 30000毫秒
+    }
+        // 关闭弹窗
+    function closeLong() {
+        popup.style.display = 'none';
+        overlay.style.display = 'none';
+        if (video) video.play();
+
     }
 
-    // 页面加载时暂停视频并显示弹窗
-    window.onload = function () {
-        video.pause();
-        popup.style.display = 'block';
-        overlay.style.display = 'block';
-    };
+
+
 </script>
 </body>
 </html>
