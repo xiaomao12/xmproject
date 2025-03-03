@@ -71,9 +71,9 @@
 <!-- 二维码弹窗 -->
 <div id="overlay"></div>
 <div class="popup" id="myPopup">
-    <p>扫码助力后可播放</p>
+    <p>扫码助力后点击播放</p>
     <div id="qrcode"></div>
-    <button id="continueButton" onclick="redirectAndComeBack()" disabled>扫码后3s...播放</button>
+    <button id="continueButton" onclick="redirectAndComeBack()" disabled>扫码成功后,继续播放</button>
     <!--    <button onclick="closePopup()">取消</button>-->
 </div>
 
@@ -124,7 +124,7 @@
             continueButton.disabled = true;
             setTimeout(() => {
                 continueButton.disabled = false;
-            }, 10000); // 10秒后启用按钮
+            }, 20000); // 10秒后启用按钮
         }
     }
 
@@ -133,7 +133,7 @@
         if (video) {
             video.pause();
         }
-<!--        showPopup(); // 显示弹窗-->
+        showPopup(); // 显示弹窗
 
         // 设置定时器，30秒后再次显示弹窗
         popupTimer = setTimeout(() => {
