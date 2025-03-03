@@ -49,6 +49,10 @@
             height: 200px;
             margin: 0 auto;
         }
+        .popup button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
     </style>
     <!-- 引入QRCode.js库 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -67,16 +71,17 @@
 <!-- 二维码弹窗 -->
 <div id="overlay"></div>
 <div class="popup" id="myPopup">
-    <p>点击助力，继续播放</p>
+    <p>扫码助力后可播放</p>
     <div id="qrcode"></div>
-    <button onclick="redirectAndComeBack()">继续播放</button>
-    <button onclick="closePopup()">取消</button>
+    <button id="continueButton" onclick="redirectAndComeBack()" disabled>扫码后3s...播放</button>
+    <!--    <button onclick="closePopup()">取消</button>-->
 </div>
 
 <script>
     const video = document.getElementById('myVideo');
     const popup = document.getElementById('myPopup');
     const overlay = document.getElementById('overlay');
+    const continueButton = document.getElementById('continueButton'); // 获取继续播放按钮
     const qrLink = "https://pro.m.jd.com/mall/active/B2Y13x641hwWfpsoRenCzfbz4jR/index.html?inviterId=C2TanS1f_FGxhcdacEUMxQ&channelType=1&femobile=femobile&_ts=1739954379197&gx=RnAoF-_kvaphHTSOeDvqhajyml1QzA&gxd=RnAoxGBZazGKz5kUrtF2XlCi39_UX60&ad_od=share&utm_source=androidapp&utm_medium=appshare&utm_campaign=t_335139774&utm_term=QRCode_shareid77035c4111e13192173995437933736523_none_none";
 
     let isPopupDisabled = false; // 标志变量，用于控制是否禁用弹窗
@@ -108,14 +113,18 @@
         }, 100);
     }
 
-
-
     // 显示弹窗
     function showPopup() {
         if (!isPopupDisabled) {
             popup.style.display = 'block';
             overlay.style.display = 'block';
             if (video) video.pause();
+
+            // 禁用继续播放按钮，并在10秒后启用
+            continueButton.disabled = true;
+            setTimeout(() => {
+                continueButton.disabled = false;
+            }, 10000); // 10秒后启用按钮
         }
     }
 
@@ -124,36 +133,34 @@
         if (video) {
             video.pause();
         }
-        showPopup(); // 显示弹窗
+<!--        showPopup(); // 显示弹窗-->
 
         // 设置定时器，30秒后再次显示弹窗
         popupTimer = setTimeout(() => {
             showPopup();
         }, 10000); // 30秒 = 30000毫秒
     };
-     // 关闭弹窗
+
+    // 关闭弹窗
     function closePopup() {
         popup.style.display = 'none';
         overlay.style.display = 'none';
         if (video) video.play();
 
         // 30秒后再次显示弹窗
-        popupTimer =  setTimeout(() => {
+        popupTimer = setTimeout(() => {
             popup.style.display = 'block';
             overlay.style.display = 'block';
             video.pause();
         }, 10000); // 30秒 = 30000毫秒
     }
-        // 关闭弹窗
+
+    // 关闭弹窗
     function closeLong() {
         popup.style.display = 'none';
         overlay.style.display = 'none';
         if (video) video.play();
-
     }
-
-
-
 </script>
 </body>
 </html>
